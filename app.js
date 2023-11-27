@@ -3,24 +3,18 @@ const Brand = require('./Models/brand');
 const dbConn = require('./dbconnect')
 
 require('dotenv').config()
-
 const app = express();//initializing express after requiring
-
 const port = process.env.PORT || 3000;
-
 dbConn()
-
-
-
-
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json())//middleware or body parse
+app.use(express.json())
 
 
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
 })
+
 app.post('/addbrands', async (req, res) => {
     const { brandname } = req.body;
     try {
@@ -38,7 +32,7 @@ app.get('/home', (req, res) => {
 })
 app.get('/getallbrands', async (req, res) => {
     try {
-        const allData = await Brand.find();
+        const allData = await Brand.find({});
         return res.status(200).json({ data: allData });
     }
     catch (err) {
