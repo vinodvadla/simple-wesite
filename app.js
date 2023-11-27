@@ -1,6 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const Brand = require('./Models/brand');
+const dbConn = require('./dbconnect')
 
 require('dotenv').config()
 
@@ -8,18 +8,13 @@ const app = express();//initializing express after requiring
 
 const port = process.env.PORT || 3000;
 
+dbConn()
+
+
+
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())//middleware or body parse
-
-const dbConn = async () => {
-    try {
-        await mongoose.connect('mongodb://localhost:27017/vinod')
-        console.log('mongodb conected')
-    } catch (error) {
-        console.log(error.message)
-    }
-}
-dbConn()
 
 
 
